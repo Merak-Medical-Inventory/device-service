@@ -1,0 +1,59 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./",
+    "strictNullChecks": false,
+    "emitDecoratorMetadata": true,
+    "esModuleInterop": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "module": "commonjs",
+    "outDir": "dist",
+    "removeComments": true,
+    "sourceMap": true,
+    "strict": true,
+    "target": "es6",
+    "moduleResolution": "node",
+    "paths": {
+      "@services/*": [
+        "src/services/*"
+      ],
+      "@shared/*": [
+        "src/shared/*"
+      ],
+      "@controllers/*": [
+        "src/controllers/*"
+      ],
+      "@db/*": [
+        "src/db/*"
+      ],
+      "@entity/*": [
+        "src/db/entity/*"
+      ],
+      "@seeds/*": [
+        "src/seeds/*"
+      ],
+      "@migration/*": [
+        "src/migration/*"
+      ],
+      "@helpers/*": [
+        "src/helpers/*"
+      ],
+      "@middlewares/*": [
+        "src/middlewares/*"
+      ]
+    },
+    "types": [
+      "node"
+    ],
+    "typeRoots": [
+      "node_modules/@types"
+    ]
+  },
+  "include": [
+    "src/**/*.ts",
+    "spec/**/*.ts"
+  ],
+  "exclude": [
+    "src/public/"
+  ]
+}
