@@ -4,6 +4,7 @@ import GeneralDevice from "@entity/GeneralDevice/GeneralDevice";
 import Maintenance from "@entity/Maintenance/Maintenance";
 import Inventory from "@entity/Inventory/Inventory";
 import Record from "@entity/Record/Record";
+import Maker from "@entity/Maker/Maker";
 
 @Entity()
 export class Device {
@@ -33,6 +34,9 @@ export class Device {
 
     @ManyToOne(type => Brand, { onDelete: 'CASCADE' })
     brand: Brand;
+
+    @ManyToOne(type => Maker, { onDelete: 'CASCADE' })
+    maker: Brand;
 
     @OneToMany(type => Maintenance, maintenance => maintenance.device, {nullable: true})
     Maintenance: Maintenance[];
