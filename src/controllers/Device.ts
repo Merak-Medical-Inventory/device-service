@@ -38,6 +38,7 @@ export const findDeviceCtrl = async (req: IRequest, res: Response, next: NextFun
 export const findAllDevicesCtrl = async (req: IRequest, res: Response, next: NextFunction) => {
     try {
         const data = await findAllDevicesSvc();
+        console.log(data);
         handleSuccess(200, 'Información de los Equipos Médicos', res, next, data);
     } catch (e) {
         console.error('ERROR: controller -> findAllDevicesCtrl', e);

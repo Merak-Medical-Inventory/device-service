@@ -36,7 +36,7 @@ export class Device {
     brand: Brand;
 
     @ManyToOne(type => Maker, { onDelete: 'CASCADE' })
-    maker: Brand;
+    maker: Maker;
 
     @OneToMany(type => Maintenance, maintenance => maintenance.device, {nullable: true})
     Maintenance: Maintenance[];

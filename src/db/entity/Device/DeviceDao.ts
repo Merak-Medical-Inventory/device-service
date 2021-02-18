@@ -19,7 +19,7 @@ export const findAllDevices = async () => {
     try {
         const deviceRepository = getManager().getRepository(Device);
         return await deviceRepository.find({
-            relations: ["generalDevice","brand","Maintenance","location","Record","Record.location"]
+            relations: ["generalDevice","brand","maker","Maintenance","location","Record","Record.location"]
         })
     } catch (error) {
         throw new ErrorHandler(500, `${error.name} ${error.message}`);
