@@ -30,7 +30,7 @@ export const findDevice = async (criteria: any) => {
     try {
         const deviceRepository = getManager().getRepository(Device);
         return await deviceRepository.findOne({
-            relations: ["generalDevice","brand","maintenance","location"],
+            relations: ["generalDevice","brand","Maintenance","location","maker"],
             where: criteria
         })
     } catch (error) {

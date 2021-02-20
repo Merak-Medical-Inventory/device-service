@@ -16,6 +16,7 @@ interface IRequest extends Request {
 
 export const createMaintenanceCtrl = async (req : IRequest , res : Response , next: NextFunction) => {
     const Maintenance = req.body;
+    console.log(Maintenance);
     try{
         const data =  await createMaintenanceSvc(Maintenance);
         handleSuccess(201, 'Mantenimiento Creado', res, next,data);

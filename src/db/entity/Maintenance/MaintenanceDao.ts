@@ -2,11 +2,11 @@ import { getManager, getConnection } from "typeorm";
 import { Maintenance } from "@db/entity/Maintenance/Maintenance";
 import { ErrorHandler } from "@helpers/ErrorHandler";
 
-export const createMaintenance = async (Maintenance: any) => {
+export const createMaintenance = async (maintenance: any) => {
     try {
         const maintenanceRepository = getManager().getRepository(Maintenance);
-        await maintenanceRepository.save(Maintenance);
-        return Maintenance;
+        await maintenanceRepository.save(maintenance);
+        return maintenance;
     } catch (error) {
         throw new ErrorHandler(500, `${error.name} ${error.message}`);
     }
@@ -16,6 +16,7 @@ export const findMaintenance = async (criteria: any) => {
     try {
         const maintenanceRepository = getManager().getRepository(Maintenance);
         return await maintenanceRepository.findOne({
+            relations: ["device", "device.generalDevice"],
             where: criteria
         });
     } catch (error) {
@@ -26,7 +27,9 @@ export const findMaintenance = async (criteria: any) => {
 export const findAllMaintenances = async () => {
     try {
         const maintenanceRepository = getManager().getRepository(Maintenance);
-        const maintenances = await maintenanceRepository.find();
+        const maintenances = await maintenanceRepository.find({
+            relations: ["device", "device.generalDevice"]
+        });
         return maintenances;
     } catch (error) {
         throw new ErrorHandler(500, `${error.name} ${error.message}`);

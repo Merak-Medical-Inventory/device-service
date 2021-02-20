@@ -22,7 +22,7 @@ import Device from "@db/entity/Device/Device";
 import GeneralDevice from "@db/entity/GeneralDevice/GeneralDevice";
 import Maintenance from "@db/entity/Maintenance/Maintenance";
 import Maker from "@db/entity/Maker/Maker";
-import Record from "@entity/Record/Record";
+import Record from "@db/entity/Record/Record";
 
 
 const typeOrmConfig: PostgresConnectionOptions = {
@@ -55,9 +55,9 @@ const typeOrmConfig: PostgresConnectionOptions = {
         OrderDepartmentToItem,
         Device,
         GeneralDevice,
-        Maintenance,
         Maker,
-        Record
+        Record,
+        Maintenance
     ]
 };
 
