@@ -24,6 +24,6 @@ export const updateDeviceSchema = Joi.object().keys({
 });
 
 export const updateLocationDevice = Joi.object().keys({
-    idInventory: Joi.number().required
+    idInventory: Joi.number().required()
 });
 

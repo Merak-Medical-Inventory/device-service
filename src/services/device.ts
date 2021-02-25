@@ -75,19 +75,20 @@ export const updateLocationDeviceSvc = async (id: number, idInventory: number) =
                 }
             });
             const device : Device = devices[0];
-            const lastRecord: any = device.Record.sort((a , b)=> a.device.id.valueOf() - b.device.id.valueOf());
-            lastRecord.endDate = new Date();
-            await manager.save(lastRecord);
+            const lastRecord = device.Record.sort((a , b)=> a.id.valueOf() - b.id.valueOf());
+            console.log(lastRecord);
+            lastRecord[0].endDate = new Date();
+            console.log(lastRecord[0]);
+            await manager.save(lastRecord[0]);
             const inventories = await manager.find(Inventory,{
                 where : {
-                    idInventory
+                    id: idInventory
                 }
             });
             const inventory : Inventory = inventories[0];
             device.location = inventory;
             const record: Record = new Record();
             record.location = inventory;
-            record.device = device;
             record.initialDate = new Date();
             await manager.save(record);
             device.Record.push(record);
