@@ -4,7 +4,7 @@ import {
     findDeviceSvc,
     findAllDevicesSvc,
     updateDeviceSvc,
-    deleteDeviceSvc, updateLocationDeviceSvc
+    deleteDeviceSvc, updateLocationDeviceSvc, findDevicesDepartmentSvc
 } from '@services/Device';
 import { handleSuccess } from '@helpers/succesHandler';
 import { ErrorHandler } from '@helpers/ErrorHandler/';
@@ -99,6 +99,17 @@ export const updateLocationDeviceCtrl = async (
         );
     } catch (e) {
         logger.error("ERROR: controller -> updateLocationDeviceCtrl", e);
+        next(e);
+    }
+};
+
+export const findDevicesDepartmentCtrl = async (req: IRequest, res: Response, next: NextFunction) => {
+    const id = req.params.id;
+    try {
+        const data = await findDevicesDepartmentSvc(Number(id));
+        handleSuccess(200, 'Información de los Equipos Médicos', res, next, data);
+    } catch (e) {
+        console.error('ERROR: controller -> findDevicesDepartmentCtrl', e);
         next(e);
     }
 };

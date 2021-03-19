@@ -3,12 +3,12 @@ import Device from "@db/entity/Device/Device";
 import { ErrorHandler } from "@helpers/ErrorHandler";
 import Record from "@entity/Record/Record";
 
-export const findAllDevicesDepartment = async (criteria: any) => {
+export const findAllDevicesDepartment = async (inventory: number) => {
     try {
         const deviceRepository = getManager().getRepository(Device);
         return await deviceRepository.find({
             relations: ["generalDevice","brand","Maintenance","location","Record","Record.location"],
-            where: criteria
+            where: {location: inventory}
         })
     } catch (error) {
         throw new ErrorHandler(500, `${error.name} ${error.message}`);

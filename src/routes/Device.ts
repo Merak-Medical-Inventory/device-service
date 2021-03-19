@@ -14,6 +14,7 @@ const router = Router();
 
 router.post('/', [sessionCheck, joiValidator(createDeviceSchema)], createDeviceCtrl);
 router.get('/', [sessionCheck], findAllDevicesCtrl);
+router.get('/inventory/:id', [sessionCheck], findAllDevicesCtrl);
 router.get('/:id', [sessionCheck], findDeviceCtrl);
 router.put('/:id', [sessionCheck, joiValidator(updateDeviceSchema)], updateDeviceCtrl);
 router.put('/location/:id', [sessionCheck, joiValidator(updateLocationDevice)], updateLocationDeviceCtrl);

@@ -3,7 +3,8 @@ import {
     findDevice,
     findAllDevices,
     updateDevice,
-    deleteDevice
+    deleteDevice,
+    findAllDevicesDepartment
 } from '@db/entity/Device/DeviceDao';
 import logger from "@shared/Logger";
 import {getManager} from "typeorm";
@@ -29,9 +30,9 @@ export const findDeviceSvc = async (device: any) => {
     }
 };
 
-export const findDevicesDepartmentSvc = async (device: any) => {
+export const findDevicesDepartmentSvc = async (inventory: number) => {
     try {
-        return await findDevice(device);
+        return await findAllDevicesDepartment(inventory);
     } catch (e) {
         console.error('TCL: findDeviceSvc -> e', e);
         throw e;
