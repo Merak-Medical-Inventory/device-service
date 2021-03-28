@@ -23,7 +23,11 @@ export const updateDeviceSchema = Joi.object().keys({
     brand : Joi.number().required()
 });
 
-export const updateLocationDevice = Joi.object().keys({
+export const updateLocationDeviceSchema = Joi.object().keys({
     idInventory: Joi.number().required()
+});
+
+export const orderDeviceSchema = Joi.object().keys({
+    asc: Joi.bool().required()
 });
 

@@ -4,7 +4,7 @@ import {
     findDeviceSvc,
     findAllDevicesSvc,
     updateDeviceSvc,
-    deleteDeviceSvc, updateLocationDeviceSvc, findDevicesDepartmentSvc
+    deleteDeviceSvc, updateLocationDeviceSvc, findDevicesDepartmentSvc, findOrderDevicesSvc
 } from '@services/Device';
 import { handleSuccess } from '@helpers/succesHandler';
 import { ErrorHandler } from '@helpers/ErrorHandler/';
@@ -110,6 +110,17 @@ export const findDevicesDepartmentCtrl = async (req: IRequest, res: Response, ne
         handleSuccess(200, 'Información de los Equipos Médicos', res, next, data);
     } catch (e) {
         console.error('ERROR: controller -> findDevicesDepartmentCtrl', e);
+        next(e);
+    }
+};
+
+export const findOrderDevicesCtrl = async (req: IRequest, res: Response, next: NextFunction) => {
+    const order = req.body.asc;
+    try {
+        const data = await findOrderDevicesSvc(order);
+        handleSuccess(200, 'Información de los Equipos Médicos', res, next, data);
+    } catch (e) {
+        console.error('ERROR: controller -> findOrderDevicesCtrl', e);
         next(e);
     }
 };

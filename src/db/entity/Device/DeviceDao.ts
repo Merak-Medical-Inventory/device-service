@@ -7,7 +7,7 @@ export const findAllDevicesDepartment = async (inventory: number) => {
     try {
         const deviceRepository = getManager().getRepository(Device);
         return await deviceRepository.find({
-            relations: ["generalDevice","brand","Maintenance","location","Record","Record.location"],
+            relations: ["generalDevice","brand","maker","Maintenance","location","Record","Record.location"],
             where: {location: inventory}
         })
     } catch (error) {
@@ -33,6 +33,27 @@ export const findDevice = async (criteria: any) => {
             relations: ["generalDevice","brand","Maintenance","location","maker"],
             where: criteria
         })
+    } catch (error) {
+        throw new ErrorHandler(500, `${error.name} ${error.message}`);
+    }
+};
+
+export const findOrderDevices = async (asc: boolean) => {
+    try {
+        const deviceRepository = getManager().getRepository(Device);
+        if (asc) {
+            return await deviceRepository.find({
+                order: { date: "ASC" },
+                relations: ["generalDevice"],
+                take: 10
+            })
+        } else {
+            return await deviceRepository.find({
+                order: { date: "DESC" },
+                relations: ["generalDevice"],
+                take: 10
+            })
+        }
     } catch (error) {
         throw new ErrorHandler(500, `${error.name} ${error.message}`);
     }
