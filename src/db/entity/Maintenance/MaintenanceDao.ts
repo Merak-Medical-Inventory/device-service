@@ -1,6 +1,7 @@
-import { getManager, getConnection } from "typeorm";
+import {getManager, getConnection, In} from "typeorm";
 import { Maintenance } from "@db/entity/Maintenance/Maintenance";
 import { ErrorHandler } from "@helpers/ErrorHandler";
+import Device from "@entity/Device/Device";
 
 export const createMaintenance = async (maintenance: any) => {
     try {
@@ -29,6 +30,27 @@ export const findAllMaintenances = async () => {
         const maintenanceRepository = getManager().getRepository(Maintenance);
         const maintenances = await maintenanceRepository.find({
             relations: ["device", "device.generalDevice"]
+        });
+        return maintenances;
+    } catch (error) {
+        throw new ErrorHandler(500, `${error.name} ${error.message}`);
+    }
+};
+
+export const findAllMaintenancesDepartment = async (inventory: number) => {
+    try {
+        const maintenanceRepository = getManager().getRepository(Maintenance);
+        const deviceRepository = getManager().getRepository(Device);
+        const devices = await deviceRepository.find({
+            select: ['id'],
+            where: {location: inventory}
+        });
+        const devicesId = devices.map(function (device) {
+            return device.id
+        });
+        const maintenances = await maintenanceRepository.find({
+            relations: ["device", "device.generalDevice"],
+            where: {device: In(devicesId)}
         });
         return maintenances;
     } catch (error) {

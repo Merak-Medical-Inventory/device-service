@@ -4,7 +4,7 @@ import {
     findMaintenanceSvc,
     findAllMaintenancesSvc,
     updateMaintenanceSvc,
-    deleteMaintenanceSvc
+    deleteMaintenanceSvc, findAllMaintenancesDepartmentSvc
 } from '@services/Maintenance';
 import { handleSuccess } from '@helpers/succesHandler';
 import { ErrorHandler } from '@helpers/ErrorHandler/';
@@ -42,6 +42,17 @@ export const findAllMaintenancesCtrl = async (req: IRequest, res: Response, next
         handleSuccess(200, 'Información de los Mantenimientos', res, next, data);
     } catch (e) {
         console.error('ERROR: controller -> findAllMaintenancesCtrl', e);
+        next(e);
+    }
+};
+
+export const findAllMaintenancesDepartmentCtrl = async (req: IRequest, res: Response, next: NextFunction) => {
+    try {
+        const { id } = req.params;
+        const data = await findAllMaintenancesDepartmentSvc(Number(id));
+        handleSuccess(200, 'Información de los Mantenimientos', res, next, data);
+    } catch (e) {
+        console.error('ERROR: controller -> findAllMaintenancesDepartmentCtrl', e);
         next(e);
     }
 };

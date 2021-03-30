@@ -3,7 +3,7 @@ import {
     findMaintenance,
     findAllMaintenances,
     updateMaintenance,
-    deleteMaintenance
+    deleteMaintenance, findAllMaintenancesDepartment
 } from '@db/entity/Maintenance/MaintenanceDao';
 import logger from "@shared/Logger";
 
@@ -30,6 +30,15 @@ export const findAllMaintenancesSvc = async () => {
         return await findAllMaintenances();
     } catch (e) {
         console.error('TCL: findAllMaintenancesSvc -> e', e);
+        throw e;
+    }
+};
+
+export const findAllMaintenancesDepartmentSvc = async (inventory: number) => {
+    try {
+        return await findAllMaintenancesDepartment(inventory);
+    } catch (e) {
+        console.error('TCL: findAllMaintenancesDepartmentSvc -> e', e);
         throw e;
     }
 };

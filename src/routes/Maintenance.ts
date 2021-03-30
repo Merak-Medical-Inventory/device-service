@@ -5,7 +5,7 @@ import {
     findMaintenanceCtrl,
     findAllMaintenancesCtrl,
     updateMaintenanceCtrl,
-    deleteMaintenanceCtrl
+    deleteMaintenanceCtrl, findAllMaintenancesDepartmentCtrl
 } from '@controllers/Maintenance';
 import { createMaintenanceSchema} from '@shared/joi/Maintenance';
 import { sessionCheck } from '@middlewares/auth/auth';
@@ -17,5 +17,6 @@ router.get('/', [sessionCheck], findAllMaintenancesCtrl);
 router.get('/:id', [sessionCheck], findMaintenanceCtrl);
 router.put('/:id', [sessionCheck, joiValidator(createMaintenanceSchema)], updateMaintenanceCtrl);
 router.delete('/:id', [sessionCheck], deleteMaintenanceCtrl);
+router.get('/inventory/:id', [sessionCheck], findAllMaintenancesDepartmentCtrl);
 
 export default router;
