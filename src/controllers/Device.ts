@@ -5,7 +5,7 @@ import {
     findAllDevicesSvc,
     updateDeviceSvc,
     deleteDeviceSvc, updateLocationDeviceSvc, findDevicesDepartmentSvc, findOrderDevicesSvc
-} from '@services/Device';
+} from '@services/device';
 import { handleSuccess } from '@helpers/succesHandler';
 import { ErrorHandler } from '@helpers/ErrorHandler/';
 import logger from '@shared/Logger';

@@ -11,10 +11,22 @@ import {getManager} from "typeorm";
 import Device from "@entity/Device/Device";
 import Inventory from "@entity/Inventory/Inventory";
 import Record from "@entity/Record/Record";
+import DeviceTransaction from "@entity/deviceTransaction/deviceTransaction";
+import { createDeviceTransaction } from '@helpers/deviceTransaction';
+import { createTransaction } from '@db/entity/deviceTransaction/deviceTransactionDao';
+
 
 export const createDeviceSvc = async (device: any) => {
     try {
-        return await createDevice(device);
+        const newDevice = await createDevice(device);
+        const deviceTransaction = new DeviceTransaction();
+        deviceTransaction.device = newDevice;
+        deviceTransaction.inventory1 = newDevice.location;
+        const bcTransaction = await createDeviceTransaction('','',deviceTransaction.inventory1.id.toString(),'',newDevice.id.toString(),'in')
+        deviceTransaction.bcTransactionId = bcTransaction.data.id;
+        deviceTransaction.blockchainTx = bcTransaction.data.transactionHash;
+        await createTransaction(deviceTransaction);
+        return newDevice;  
     } catch (e) {
         console.error('TCL: createDeviceSvc -> e', e);
         throw e;
@@ -95,12 +107,20 @@ export const updateLocationDeviceSvc = async (id: number, idInventory: number) =
                     id: idInventory
                 }
             });
+            const deviceTransaction = new DeviceTransaction();
+            deviceTransaction.device = device;
+            deviceTransaction.inventory1 = device.location;
             const inventory : Inventory = inventories[0];
+            deviceTransaction.inventory2 = inventory;
             device.location = inventory;
             const record: Record = new Record();
             record.location = inventory;
             record.initialDate = new Date();
             await manager.save(record);
+            const bcTransaction = await createDeviceTransaction('','',deviceTransaction.inventory1.id.toString(),deviceTransaction.inventory2.id.toString(),device.id.toString(),'updateLocation')
+            deviceTransaction.bcTransactionId = bcTransaction.data.id;
+            deviceTransaction.blockchainTx = bcTransaction.data.transactionHash;
+            await manager.save(deviceTransaction);
             device.Record.push(record);
             return await manager.save(device);
         });

@@ -62,7 +62,7 @@ export const findOrderDevices = async (asc: boolean) => {
 export const createDevice = async (device: any) => {
     try {
         const deviceRepository = getManager().getRepository(Device);
-        await deviceRepository.save(device);
+        const newDevice : Device = await deviceRepository.save(device);
         const record: any = {
             initialDate : new Date(),
             device: device.id,
@@ -70,7 +70,7 @@ export const createDevice = async (device: any) => {
         };
         const recordRepository = getManager().getRepository(Record);
         await recordRepository.save(record);
-        return device;
+        return newDevice;
     } catch (error) {
         throw new ErrorHandler(500, `${error.name} ${error.message}`);
     }
