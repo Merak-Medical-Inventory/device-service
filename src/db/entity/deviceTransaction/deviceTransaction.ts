@@ -14,7 +14,7 @@ export class DeviceTransaction {
     @Column()
     bcTransactionId: string;
     
-    @Column({nullable : true})
+    @ManyToOne(type => User,{ nullable : true })
     sender: User;
     
     @ManyToOne(type => Inventory,{nullable : true})
