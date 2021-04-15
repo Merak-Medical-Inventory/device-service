@@ -21,12 +21,14 @@ export const createDeviceSvc = async (device: any) => {
         const newDevice = await createDevice(device);
         const deviceTransaction = new DeviceTransaction();
         deviceTransaction.device = newDevice;
-        deviceTransaction.inventory1 = newDevice.location;
+        const inventory = new Inventory()
+        inventory.id = device.location;
+        deviceTransaction.inventory1 = inventory;
         const bcTransaction = await createDeviceTransaction('','',deviceTransaction.inventory1.id.toString(),'',newDevice.id.toString(),'in')
         deviceTransaction.bcTransactionId = bcTransaction.data.id;
         deviceTransaction.blockchainTx = bcTransaction.data.transactionHash;
         await createTransaction(deviceTransaction);
-        return newDevice;  
+        return newDevice;
     } catch (e) {
         console.error('TCL: createDeviceSvc -> e', e);
         throw e;
