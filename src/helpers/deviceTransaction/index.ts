@@ -34,7 +34,7 @@ export const createDeviceTransaction = async (
   }
 };
 
-export const getDeviceTransaction = async (id: string) => {
+export const getBcDeviceTransactionSvc = async (id: string) => {
   try {
     const response = await blockchainInstance.get(`/api/device/${id}`);
     return response.data;

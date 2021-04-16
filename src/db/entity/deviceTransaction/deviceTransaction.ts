@@ -13,6 +13,9 @@ export class DeviceTransaction {
 
     @Column()
     bcTransactionId: string;
+
+    @Column({nullable : true})
+    date: Date;
     
     @ManyToOne(type => User,{ nullable : true })
     sender: User;

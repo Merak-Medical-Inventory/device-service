@@ -2,12 +2,14 @@ import { getManager } from 'typeorm';
 import Transaction from '@db/entity/deviceTransaction/deviceTransaction';
 import { ErrorHandler } from '@helpers/ErrorHandler';
 
-export const findAllTransactions = async (criteria: any) => {
+export const findAllTransactions = async () => {
   try {
     const deviceTransactionRepository = getManager().getRepository(Transaction);
     return await deviceTransactionRepository.find({
       relations: ['sender', 'inventory1','inventory2','device'],
-      where: criteria
+      order : {
+        date : 'DESC'
+      }
   })
   } catch (error) {
     throw new ErrorHandler(500, `${error.name} ${error.message}`);
