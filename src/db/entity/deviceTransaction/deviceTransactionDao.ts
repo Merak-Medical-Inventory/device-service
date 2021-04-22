@@ -6,7 +6,7 @@ export const findAllTransactions = async () => {
   try {
     const deviceTransactionRepository = getManager().getRepository(Transaction);
     return await deviceTransactionRepository.find({
-      relations: ['sender', 'inventory1','inventory2','device'],
+      relations: ['sender', 'inventory1','inventory2','device', 'device.generalDevice'],
       order : {
         date : 'DESC'
       }
