@@ -7,7 +7,7 @@ import {
     findAllDevicesDepartment, findOrderDevices
 } from '@db/entity/Device/DeviceDao';
 import logger from "@shared/Logger";
-import {getManager} from "typeorm";
+import {getManager, Transaction} from "typeorm";
 import Device from "@entity/Device/Device";
 import Inventory from "@entity/Inventory/Inventory";
 import Record from "@entity/Record/Record";
@@ -24,8 +24,8 @@ export const createDeviceSvc = async (device: any) => {
         const inventory = new Inventory()
         inventory.id = device.location;
         deviceTransaction.inventory1 = inventory;
-        const bcTransaction = await createDeviceTransaction('','',deviceTransaction.inventory1.id.toString(),'',newDevice.id.toString(),'in')
         deviceTransaction.date = new Date();
+        const bcTransaction = await createDeviceTransaction('','',deviceTransaction.inventory1.id.toString(),'',newDevice.id.toString(),deviceTransaction.date.toUTCString())
         deviceTransaction.bcTransactionId = bcTransaction.data.id;
         deviceTransaction.blockchainTx = bcTransaction.data.transactionHash;
         await createTransaction(deviceTransaction);
@@ -120,8 +120,8 @@ export const updateLocationDeviceSvc = async (id: number, idInventory: number) =
             record.location = inventory;
             record.initialDate = new Date();
             await manager.save(record);
-            const bcTransaction = await createDeviceTransaction('','',deviceTransaction.inventory1.id.toString(),deviceTransaction.inventory2.id.toString(),device.id.toString(),'updateLocation')
             deviceTransaction.date = new Date();
+            const bcTransaction = await createDeviceTransaction('','',deviceTransaction.inventory1.id.toString(),deviceTransaction.inventory2.id.toString(),device.id.toString(),deviceTransaction.date.toUTCString())
             deviceTransaction.bcTransactionId = bcTransaction.data.id;
             deviceTransaction.blockchainTx = bcTransaction.data.transactionHash;
             await manager.save(deviceTransaction);
