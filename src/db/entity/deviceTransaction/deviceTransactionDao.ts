@@ -6,7 +6,7 @@ export const findAllTransactions = async () => {
   try {
     const deviceTransactionRepository = getManager().getRepository(Transaction);
     return await deviceTransactionRepository.find({
-      relations: ['sender', 'inventory1','inventory2','device'],
+      relations: ['sender', 'inventory1','inventory2','device', 'device.generalDevice'],
       order : {
         date : 'DESC'
       }
@@ -16,13 +16,18 @@ export const findAllTransactions = async () => {
   }
 };
 
-export const findTransaction = async (criteria: any) => {
+export const findInventoryTransactions = async (inventoryId: number) => {
   try {
     const deviceTransactionRepository = getManager().getRepository(Transaction);
-    return await deviceTransactionRepository.findOne({
-      relations: ['sender', 'inventory1','inventory2','device'],
-      where: criteria
-  })
+    return await deviceTransactionRepository.find({
+      relations: ['sender', 'inventory1','inventory2','device', 'device.generalDevice'],
+      where: [{
+        inventory1: inventoryId
+      },
+        {
+          inventory2: inventoryId
+        }]
+    })
   } catch (error) {
     throw new ErrorHandler(500, `${error.name} ${error.message}`);
   }
