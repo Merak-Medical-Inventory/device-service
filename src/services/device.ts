@@ -25,7 +25,7 @@ export const createDeviceSvc = async (device: any) => {
         inventory.id = device.location;
         deviceTransaction.inventory1 = inventory;
         deviceTransaction.date = new Date();
-        const bcTransaction = await createDeviceTransaction('','',deviceTransaction.inventory1.id.toString(),'',newDevice.id.toString(),deviceTransaction.date.toUTCString())
+        const bcTransaction = await createDeviceTransaction(process.env.USER_ID || '','',deviceTransaction.inventory1.id.toString(),'',newDevice.id.toString(),deviceTransaction.date.toUTCString())
         deviceTransaction.bcTransactionId = bcTransaction.data.id;
         deviceTransaction.blockchainTx = bcTransaction.data.transactionHash;
         await createTransaction(deviceTransaction);
@@ -121,7 +121,7 @@ export const updateLocationDeviceSvc = async (id: number, idInventory: number) =
             record.initialDate = new Date();
             await manager.save(record);
             deviceTransaction.date = new Date();
-            const bcTransaction = await createDeviceTransaction('','',deviceTransaction.inventory1.id.toString(),deviceTransaction.inventory2.id.toString(),device.id.toString(),deviceTransaction.date.toUTCString())
+            const bcTransaction = await createDeviceTransaction(process.env.USER_ID || '','',deviceTransaction.inventory1.id.toString(),deviceTransaction.inventory2.id.toString(),device.id.toString(),deviceTransaction.date.toUTCString())
             deviceTransaction.bcTransactionId = bcTransaction.data.id;
             deviceTransaction.blockchainTx = bcTransaction.data.transactionHash;
             await manager.save(deviceTransaction);

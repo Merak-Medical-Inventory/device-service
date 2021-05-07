@@ -5,7 +5,7 @@ import {
     findAllMaintenancesSvc,
     updateMaintenanceSvc,
     deleteMaintenanceSvc, findAllMaintenancesDepartmentSvc
-} from '@services/Maintenance';
+} from '@services/maintenance';
 import { handleSuccess } from '@helpers/succesHandler';
 import { ErrorHandler } from '@helpers/ErrorHandler/';
 import logger from '@shared/Logger';
