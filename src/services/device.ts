@@ -14,6 +14,7 @@ import Record from "@entity/Record/Record";
 import DeviceTransaction from "@entity/deviceTransaction/deviceTransaction";
 import { createDeviceTransaction } from '@helpers/deviceTransaction';
 import { createTransaction } from '@db/entity/deviceTransaction/deviceTransactionDao';
+import User from '@db/entity/user/User';
 
 
 export const createDeviceSvc = async (device: any) => {
@@ -24,6 +25,8 @@ export const createDeviceSvc = async (device: any) => {
         const inventory = new Inventory()
         inventory.id = device.location;
         deviceTransaction.inventory1 = inventory;
+        deviceTransaction.sender = new User();
+        deviceTransaction.sender.id = parseInt(<string>process.env.USER_ID)
         deviceTransaction.date = new Date();
         const bcTransaction = await createDeviceTransaction(process.env.USER_ID || '','',deviceTransaction.inventory1.id.toString(),'',newDevice.id.toString(),deviceTransaction.date.toUTCString())
         deviceTransaction.bcTransactionId = bcTransaction.data.id;
@@ -121,6 +124,8 @@ export const updateLocationDeviceSvc = async (id: number, idInventory: number) =
             record.initialDate = new Date();
             await manager.save(record);
             deviceTransaction.date = new Date();
+            deviceTransaction.sender = new User();
+            deviceTransaction.sender.id = parseInt(<string>process.env.USER_ID)
             const bcTransaction = await createDeviceTransaction(process.env.USER_ID || '','',deviceTransaction.inventory1.id.toString(),deviceTransaction.inventory2.id.toString(),device.id.toString(),deviceTransaction.date.toUTCString())
             deviceTransaction.bcTransactionId = bcTransaction.data.id;
             deviceTransaction.blockchainTx = bcTransaction.data.transactionHash;
