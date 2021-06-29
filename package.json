@@ -6,7 +6,7 @@
     "heroku-postbuild": "NODE_ENV=production rimraf ./dist/* && webpack",
     "run:prod": "node ./dist/main.bundle.js --env=production",
     "start:dev": "nodemon",
-    "test": "nodemon --config ./spec/nodemon.json",
+    "test": "jest",
     "typeorm": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js"
   },
   "nodemonConfig": {
@@ -26,6 +26,7 @@
   "dependencies": {
     "@hapi/joi": "^17.1.1",
     "@types/dotenv": "^8.2.0",
+    "@types/jest": "^26.0.23",
     "@types/mongoose": "^5.7.23",
     "axios": "^0.19.2",
     "bcryptjs": "^2.4.3",
@@ -37,6 +38,7 @@
     "express-async-errors": "^3.1.1",
     "helmet": "^3.22.0",
     "http-status-codes": "^1.4.0",
+    "jest": "^27.0.6",
     "jsonwebtoken": "^8.5.1",
     "lodash": "^4.17.15",
     "module-alias": "^2.2.2",
@@ -64,7 +66,7 @@
     "@types/lodash": "^4.14.155",
     "@types/morgan": "^1.9.0",
     "@types/node": "^14.0.12",
-    "@types/supertest": "^2.0.9",
+    "@types/supertest": "^2.0.11",
     "case-sensitive-paths-webpack-plugin": "^2.3.0",
     "find": "^0.3.0",
     "fork-ts-checker-webpack-plugin": "^5.0.4",
