@@ -38,7 +38,6 @@ export const findDeviceCtrl = async (req: IRequest, res: Response, next: NextFun
 export const findAllDevicesCtrl = async (req: IRequest, res: Response, next: NextFunction) => {
     try {
         const data = await findAllDevicesSvc();
-        console.log(data);
         handleSuccess(200, 'Información de los Equipos Médicos', res, next, data);
     } catch (e) {
         console.error('ERROR: controller -> findAllDevicesCtrl', e);
@@ -51,13 +50,7 @@ export const updateDeviceCtrl = async ( req: IRequest, res: Response, next: Next
     const { id } = req.params;
     try {
         const data = await updateDeviceSvc(id, update);
-        handleSuccess(
-            201,
-            'Equipo Médico Actualizado Satisfactoriamente',
-            res,
-            next,
-            data
-        );
+        handleSuccess(201,'Equipo Médico Actualizado Satisfactoriamente',res,next,data);
     } catch (e) {
         logger.error('ERROR: controller -> updateDeviceCtrl', e);
         next(e);
@@ -68,13 +61,7 @@ export const deleteDeviceCtrl = async (req: IRequest, res: Response, next: NextF
     const { id } = req.params;
     try {
         const data = await deleteDeviceSvc(id);
-        handleSuccess(
-            201,
-            'Equipo Médico Eliminado Satisfactoriamente',
-            res,
-            next,
-            data
-        );
+        handleSuccess(201,'Equipo Médico Eliminado Satisfactoriamente',res,next,data);
     } catch (e) {
         logger.error('ERROR: controller -> deleteDeviceCtrl', e);
         next(e);
@@ -90,13 +77,7 @@ export const updateLocationDeviceCtrl = async (
         const idInventory = req.body.idInventory;
         const id = parseInt(req.params.id);
         const data = await updateLocationDeviceSvc(id, idInventory);
-        handleSuccess(
-            201,
-            "Ubicación Actualizada para el Equipo Médico",
-            res,
-            next,
-            data
-        );
+        handleSuccess(201,"Ubicación Actualizada para el Equipo Médico",res,next,data);
     } catch (e) {
         logger.error("ERROR: controller -> updateLocationDeviceCtrl", e);
         next(e);

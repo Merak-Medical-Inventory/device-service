@@ -47,6 +47,7 @@
     "morgan": "^1.10.0",
     "pg": "^8.2.1",
     "reflect-metadata": "^0.1.13",
+    "ts-jest": "^27.0.3",
     "ts-loader": "^7.0.5",
     "tslib": "^2.0.0",
     "typeorm": "^0.2.25",

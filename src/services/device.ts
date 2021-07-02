@@ -104,9 +104,7 @@ export const updateLocationDeviceSvc = async (id: number, idInventory: number) =
             });
             const device : Device = devices[0];
             const lastRecord = device.Record.sort((a , b)=> a.id.valueOf() - b.id.valueOf());
-            console.log(lastRecord);
             lastRecord[0].endDate = new Date();
-            console.log(lastRecord[0]);
             await manager.save(lastRecord[0]);
             const inventories = await manager.find(Inventory,{
                 where : {

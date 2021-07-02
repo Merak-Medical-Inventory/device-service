@@ -44,7 +44,7 @@ export class Device {
     @ManyToOne(type => Inventory, { onDelete: 'CASCADE' })
     location: Inventory;
 
-    @OneToMany(type => Record, record => record.device)
+    @OneToMany(type => Record, record => record.device,{ onDelete: 'CASCADE' })
     Record: Record[];
 
 }

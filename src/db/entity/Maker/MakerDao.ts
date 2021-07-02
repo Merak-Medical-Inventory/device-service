@@ -5,8 +5,7 @@ import { ErrorHandler } from '@helpers/ErrorHandler';
 export const createMaker = async (maker: any) => {
     try {
         const makerRepository = getManager().getRepository(Maker);
-        await makerRepository.save(maker);
-        return maker;
+        return await makerRepository.save(maker);
     } catch (error) {
         throw new ErrorHandler(500, `${error.name} ${error.message}`);
     }

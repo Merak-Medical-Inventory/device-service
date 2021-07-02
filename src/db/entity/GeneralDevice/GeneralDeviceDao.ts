@@ -5,8 +5,7 @@ import { ErrorHandler } from "@helpers/ErrorHandler";
 export const createGeneralDevice = async (generalDevice: any) => {
     try {
         const generalDeviceRepository = getManager().getRepository(GeneralDevice);
-        await generalDeviceRepository.save(generalDevice);
-        return GeneralDevice;
+        return await generalDeviceRepository.save(generalDevice);
     } catch (error) {
         throw new ErrorHandler(500, `${error.name} ${error.message}`);
     }
